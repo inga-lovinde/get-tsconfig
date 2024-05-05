@@ -204,9 +204,6 @@ export default testSuite(({ describe }) => {
 						'a.ts': '',
 						'b.ts': '',
 						'c.ts': '',
-						'tsconfig.base.json': createTsconfigJson({
-							include: ['../src-a/*'],
-						}),
 					},
 					'tsconfig.json': createTsconfigJson({
 						extends: './configs/tsconfig.base.json',
