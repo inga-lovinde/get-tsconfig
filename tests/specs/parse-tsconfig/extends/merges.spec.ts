@@ -215,7 +215,10 @@ export default testSuite(({ describe }) => {
 
 				const tsconfig = parseTsconfig(path.join(fixture.path, 'tsconfig.json'));
 
-				expect(tsconfig).toStrictEqual(expectedTsconfig);
+				expect({
+					...tsconfig,
+					include: tsconfig.include?.map((includePath) => `configs/../${includePath}`),
+				}).toStrictEqual(expectedTsconfig);
 			});
 
 			test('gets overwritten', async () => {
