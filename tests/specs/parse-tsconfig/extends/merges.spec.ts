@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+//import fs from 'fs/promises';
 import path from 'path';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
@@ -195,7 +195,7 @@ export default testSuite(({ describe }) => {
 
 			test('inherits with relative path from subdirectory', async () => {
 				await using fixture = await createFixture({
-					'configs': {
+					configs: {
 						'tsconfig.base.json': createTsconfigJson({
 							include: ['../src-a/*'],
 						}),
@@ -217,7 +217,7 @@ export default testSuite(({ describe }) => {
 
 				expect({
 					...tsconfig,
-					include: tsconfig.include?.map((includePath) => `configs/../${includePath}`),
+					include: tsconfig.include?.map(includePath => `configs/../${includePath}`),
 				}).toStrictEqual(expectedTsconfig);
 			});
 

@@ -5,13 +5,13 @@ import { createFixture } from 'fs-fixture';
 import { createTsconfigJson, getTscTsconfig } from '../../../../utils.js';
 import { parseTsconfig } from '#get-tsconfig';
 
-const validate = async (dirPath: string) => {
-	const expectedTsconfig = await getTscTsconfig(dirPath);
+const validate = async (directoryPath: string) => {
+	const expectedTsconfig = await getTscTsconfig(directoryPath);
 	delete expectedTsconfig.files;
 
-	const tsconfig = parseTsconfig(path.join(dirPath, 'tsconfig.json'));
+	const tsconfig = parseTsconfig(path.join(directoryPath, 'tsconfig.json'));
 	expect(tsconfig).toStrictEqual(expectedTsconfig);
-}
+};
 
 export default testSuite(({ describe }) => {
 	describe('symbolic link', ({ test }) => {
@@ -71,7 +71,7 @@ export default testSuite(({ describe }) => {
 						},
 					}),
 				},
-				'project': {
+				project: {
 					'tsconfig.base.json': createTsconfigJson({
 						compilerOptions: {
 							jsx: 'react',
@@ -97,7 +97,7 @@ export default testSuite(({ describe }) => {
 						},
 					}),
 				},
-				'project': {
+				project: {
 					'tsconfig.base.json': createTsconfigJson({
 						compilerOptions: {
 							jsx: 'react',
