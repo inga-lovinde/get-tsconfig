@@ -91,7 +91,12 @@ const _parseTsconfig = (
 	 *
 	 * By only caching fs results, we can avoid serving mutated objects
 	 */
-	let config: TsConfigJson = readJsonc(tsconfigPath, cache) || {};
+	let config: TsConfigJson;
+	try {
+		config = readJsonc(tsconfigPath, cache) || {};
+	} catch {
+		throw new Error(`Cannot resolve tsconfig at path: ${tsconfigPath}`);
+	}
 
 	if (typeof config !== 'object') {
 		throw new SyntaxError(`Failed to parse tsconfig at: ${tsconfigPath}`);
