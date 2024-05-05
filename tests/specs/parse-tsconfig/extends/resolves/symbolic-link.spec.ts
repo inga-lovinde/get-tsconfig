@@ -1,14 +1,15 @@
 import fs from 'fs/promises';
+import path from 'path';
 import { testSuite, expect } from 'manten';
 import { createFixture } from 'fs-fixture';
 import { createTsconfigJson, getTscTsconfig } from '../../../../utils.js';
 import { parseTsconfig } from '#get-tsconfig';
 
-const validate = async (path: string) => {
-	const expectedTsconfig = await getTscTsconfig(path);
+const validate = async (dirPath: string) => {
+	const expectedTsconfig = await getTscTsconfig(dirPath);
 	delete expectedTsconfig.files;
 
-	const tsconfig = parseTsconfig(path);
+	const tsconfig = parseTsconfig(path.join(dirPath, 'tsconfig.json'));
 	expect(tsconfig).toStrictEqual(expectedTsconfig);
 }
 
@@ -33,7 +34,7 @@ export default testSuite(({ describe }) => {
 
 			await fs.symlink(fixture.getPath('symlink-source.json'), fixture.getPath('symlink.json'));
 
-			await validate(fixture.getPath('tsconfig.json'));
+			await validate(fixture.path);
 		});
 
 		test('extends file from symlink to directory', async () => {
@@ -57,7 +58,7 @@ export default testSuite(({ describe }) => {
 
 			await fs.symlink(fixture.getPath('symlink-source'), fixture.getPath('symlink'));
 
-			await validate(fixture.getPath('tsconfig.json'));
+			await validate(fixture.path);
 		});
 
 		test('extends from symlink to file in origin directory', async () => {
@@ -83,7 +84,7 @@ export default testSuite(({ describe }) => {
 
 			await fs.symlink(fixture.getPath('symlink-source/main.json'), fixture.getPath('project/tsconfig.json'));
 
-			await validate(fixture.getPath('tsconfig.json'));
+			await validate(fixture.getPath('project'));
 		});
 	});
 });
