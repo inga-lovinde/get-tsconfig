@@ -251,7 +251,7 @@ export default testSuite(({ describe }) => {
 				expect({
 					...tsconfig,
 					// See https://github.com/privatenumber/get-tsconfig/issues/73
-					include: tsconfig.include?.map(includePath => `configs/../${includePath}`),
+					include: tsconfig.include?.map(includePath => `symlink/../${includePath}`),
 				}).toStrictEqual(expectedTsconfig);
 			});
 		});
