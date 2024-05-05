@@ -229,8 +229,8 @@ export default testSuite(({ describe }) => {
 							include: ['../src/*'],
 						}),
 					},
-					'project': {
-						'src': {
+					project: {
+						src: {
 							'a.ts': '',
 							'b.ts': '',
 							'c.ts': '',
@@ -238,7 +238,7 @@ export default testSuite(({ describe }) => {
 						'tsconfig.json': createTsconfigJson({
 							extends: './symlink/tsconfig.base.json',
 						}),
-					}
+					},
 				});
 
 				await fs.symlink(fixture.getPath('symlink-source'), fixture.getPath('project/symlink'));
@@ -353,12 +353,12 @@ export default testSuite(({ describe }) => {
 							},
 						}),
 					},
-					'project': {
+					project: {
 						'tsconfig.json': createTsconfigJson({
 							extends: './symlink/tsconfig.json',
 						}),
 						'a.ts': '',
-					}
+					},
 				});
 
 				await fs.symlink(fixture.getPath('symlink-source'), fixture.getPath('project/symlink'));
