@@ -31,7 +31,7 @@ export default testSuite(({ describe }) => {
 				'file.ts': '',
 			});
 
-			await fs.symlink(fixture.getPath('symlink.json'), fixture.getPath('symlink-source.json'));
+			await fs.symlink(fixture.getPath('symlink-source.json'), fixture.getPath('symlink.json'));
 
 			await validate(fixture.getPath('tsconfig.json'));
 		});
@@ -55,7 +55,7 @@ export default testSuite(({ describe }) => {
 				'file.ts': '',
 			});
 
-			await fs.symlink(fixture.getPath('symlink'), fixture.getPath('symlink-source'));
+			await fs.symlink(fixture.getPath('symlink-source'), fixture.getPath('symlink'));
 
 			await validate(fixture.getPath('tsconfig.json'));
 		});
@@ -81,7 +81,7 @@ export default testSuite(({ describe }) => {
 				},
 			});
 
-			await fs.symlink(fixture.getPath('project/tsconfig.json'), fixture.getPath('symlink-source/main.json'));
+			await fs.symlink(fixture.getPath('symlink-source/main.json'), fixture.getPath('project/tsconfig.json'));
 
 			await validate(fixture.getPath('tsconfig.json'));
 		});
