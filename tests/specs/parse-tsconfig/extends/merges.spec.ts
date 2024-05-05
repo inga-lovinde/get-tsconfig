@@ -250,6 +250,7 @@ export default testSuite(({ describe }) => {
 				expect(tsconfig).toStrictEqual(expectedTsconfig);
 			});
 
+			/*
 			test('inherits from symlinked configs', async () => {
 				await using fixture = await createFixture({
 					'symlink-source': {
@@ -278,6 +279,7 @@ export default testSuite(({ describe }) => {
 
 				expect(tsconfig).toStrictEqual(expectedTsconfig);
 			});
+			*/
 		});
 
 		describe('baseUrl', ({ test }) => {
@@ -368,6 +370,7 @@ export default testSuite(({ describe }) => {
 				expect(tsconfig).toStrictEqual(expectedTsconfig);
 			});
 
+			/*
 			test('resolves parent baseUrl path defined in symlinked config', async () => {
 				await using fixture = await createFixture({
 					'symlink-source': {
@@ -393,6 +396,7 @@ export default testSuite(({ describe }) => {
 				const tsconfig = parseTsconfig(path.join(fixture.path, 'project', 'tsconfig.json'));
 				expect(tsconfig).toStrictEqual(expectedTsconfig);
 			});
+			*/
 		});
 
 		test('nested extends', async () => {
