@@ -146,7 +146,7 @@ export default testSuite(({ describe }) => {
 
 			const cache = new Map();
 			const parsedTsconfig = parseTsconfig(path.join(fixture.path, 'tsconfig.json'), cache);
-			expect(cache.size).toBe(2);
+			expect(cache.size).toBe(1);
 
 			const expectedTsconfig = await getTscTsconfig(fixture.path);
 			delete expectedTsconfig.files;
