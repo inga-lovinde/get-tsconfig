@@ -149,9 +149,6 @@ export const createFilesMatcher = (
 		? includeSpec.map((filePath) => {
 			let projectFilePath = pathJoin(projectDirectory, filePath);
 
-			// https://github.com/microsoft/TypeScript/blob/acf854b636e0b8e5a12c3f9951d4edfa0fa73bcd/src/compiler/utilities.ts#L8168
-			projectFilePath = path.normalize(projectFilePath);
-
 			// https://github.com/microsoft/TypeScript/blob/acf854b636e0b8e5a12c3f9951d4edfa0fa73bcd/src/compiler/utilities.ts#L8178
 			if (isImplicitGlobPattern.test(projectFilePath)) {
 				projectFilePath = pathJoin(projectFilePath, matchAllGlob);
