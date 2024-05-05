@@ -236,7 +236,7 @@ export default testSuite(({ describe }) => {
 							'c.ts': '',
 						},
 						'tsconfig.json': createTsconfigJson({
-							extends: './symlink-source/tsconfig.base.json',
+							extends: './symlink/tsconfig.base.json',
 						}),
 					}
 				});
