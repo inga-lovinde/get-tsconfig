@@ -17,14 +17,14 @@ export default testSuite(({ describe }) => {
 	describe('symbolic link', ({ test }) => {
 		test('extends symlink to file', async () => {
 			await using fixture = await createFixture({
-				'symlink-source.json': createTsconfigJson({
+				'tsconfig.symlink-source.json': createTsconfigJson({
 					compilerOptions: {
 						jsx: 'react',
 						allowJs: true,
 					},
 				}),
 				'tsconfig.json': createTsconfigJson({
-					extends: './symlink.json',
+					extends: './tsconfig.symlink.json',
 					compilerOptions: {
 						strict: true,
 					},
@@ -32,7 +32,7 @@ export default testSuite(({ describe }) => {
 				'file.ts': '',
 			});
 
-			await fs.symlink(fixture.getPath('symlink-source.json'), fixture.getPath('symlink.json'));
+			await fs.symlink(fixture.getPath('tsconfig.symlink-source.json'), fixture.getPath('tsconfig.symlink.json'));
 
 			await validate(fixture.path);
 		});
@@ -64,15 +64,15 @@ export default testSuite(({ describe }) => {
 		test('extends from symlink to file in origin directory', async () => {
 			await using fixture = await createFixture({
 				'symlink-source': {
-					'main.json': createTsconfigJson({
-						extends: './base.json',
+					'tsconfig.main.json': createTsconfigJson({
+						extends: './tsconfig.base.json',
 						compilerOptions: {
 							strict: true,
 						},
 					}),
 				},
 				'project': {
-					'base.json': createTsconfigJson({
+					'tsconfig.base.json': createTsconfigJson({
 						compilerOptions: {
 							jsx: 'react',
 							allowJs: true,
@@ -82,7 +82,39 @@ export default testSuite(({ describe }) => {
 				},
 			});
 
-			await fs.symlink(fixture.getPath('symlink-source/main.json'), fixture.getPath('project/tsconfig.json'));
+			await fs.symlink(fixture.getPath('symlink-source/tsconfig.main.json'), fixture.getPath('project/tsconfig.json'));
+
+			await validate(fixture.getPath('project'));
+		});
+
+		test('extends from file in symlinked directory to file in origin directory', async () => {
+			await using fixture = await createFixture({
+				'symlink-source': {
+					'tsconfig.main.json': createTsconfigJson({
+						extends: '../tsconfig.base.json',
+						compilerOptions: {
+							strict: true,
+						},
+					}),
+				},
+				'project': {
+					'tsconfig.base.json': createTsconfigJson({
+						compilerOptions: {
+							jsx: 'react',
+							allowJs: true,
+						},
+					}),
+					'tsconfig.json': createTsconfigJson({
+						extends: './symlink/tsconfig.main.json',
+						compilerOptions: {
+							importHelpers: true,
+						},
+					}),
+					'file.ts': '',
+				},
+			});
+
+			await fs.symlink(fixture.getPath('symlink-source'), fixture.getPath('project/symlink'));
 
 			await validate(fixture.getPath('project'));
 		});
